@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Setting : MonoBehaviour
 { 
-    Grid grid;
-    Main main;
+    Grid grid; //그리드 형식의 변수 선언 마우스 포인트(목적지)의 노드를 저장
+    Main main;  //길찾기의 시작과 끝 지점을 지정하기 위한 main변수
 
     int settingButton = 1;
 
@@ -28,19 +28,21 @@ public class Setting : MonoBehaviour
         if (Input.GetMouseButtonDown(0) )
         {
             Node node = RayCast();
-            if (node != null)
+            if (node != null) //마우스 포인트에 닿은 것이 널이 아니라면 return
             {
-                if(node.start || node.end)      // Ray에 맞은 노드가 시작, 끝인지 판단
+                if(node.start || node.end)      // Ray에 맞은 노드가 시작, 끝인지 판단 시작지점이거나 끝 지점이면 시작/끝의 위치를 변경할 수 있다.
                     StartCoroutine("SwitchStartEnd", node);
                 else
-                    StartCoroutine("ChangeWalkable", node);
+                    StartCoroutine("ChangeWalkable", node); //시작이나 끝이 아니라면 장애물로 변경
             }
+            return;
         }
 
     }
 
     public void SetTarget()
     {
+        //기존의 다른 end노드를 없애고 마우스로 찍은 노드로 변경_ 아직 구현 안함
         if (Input.GetMouseButtonDown(1))
         {
             Node node = RayCast();
@@ -56,6 +58,7 @@ public class Setting : MonoBehaviour
     {
         bool start = node.start;
         Node nodeOld = node;
+       
         while (Input.GetMouseButton(0))
         {
             node = RayCast();

@@ -43,9 +43,9 @@ public class Main : MonoBehaviour
         if (success)
         {
             start = grid.StartNode;
-            end = grid.EndNode;
+          //  end = grid.EndNode;
             start.ChangeStart = true;
-            end.ChangeEnd = true;
+         //   end.ChangeEnd = true;
         }
     }
 
@@ -133,6 +133,8 @@ public class Main : MonoBehaviour
     }
 
     //도착지점 부터 출발지점까지 부모 노드를 입력하여 웨이포인트를 생성
+
+    //여기서 게임오브젝트의 이동경로를 웨이 포인트로 지정해줘야 할 듯
     Vector3[] RetracePath(Node startNode, Node endNode)
     {
         List<Node> path = new List<Node>();
