@@ -40,7 +40,8 @@ public class Grid : MonoBehaviour
         {
             for (int y = 0; y < (int)gridWorldSize.y; y++)
             {
-                Vector3 worldPoint = worldBottomLeft + Vector3.right * (x + 0.5f) + Vector3.forward * (y + 0.5f);
+//                Vector3 worldPoint = worldBottomLeft + Vector3.right * x + Vector3.forward * y;
+                Vector3 worldPoint = worldBottomLeft + Vector3.right * (x + 0.5f) + Vector3.forward * (y + 0.5f);   //0을 기준으로 좌, 우가 같은 index값을 가지기 위해 0.5씩 더한다.
                 GameObject obj = Instantiate(groundPrefab, worldPoint, Quaternion.Euler(90, 0, 0));
                 obj.transform.parent = parentGrid.transform;
                 grid[x, y] = new Node(obj, true, x, y);

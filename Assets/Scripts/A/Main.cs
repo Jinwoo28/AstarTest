@@ -14,7 +14,6 @@ public class Main : MonoBehaviour
     public Node start; 
      public Node end;
 
-    public Main instance;
 
     public bool finding;
 
@@ -38,9 +37,9 @@ public class Main : MonoBehaviour
        // line.SetActive(false);
         finding = false;
 
-        bool success = grid.CreateGrid();
+        bool success = grid.CreateGrid();// 게임 시작시 맵에 타일 생성
 
-        if (success)
+        if (success)        // 생성이 끝나면 처음 시작과 끝이 될 노드를 설정
         {
             start = grid.StartNode;
           //  end = grid.EndNode;
@@ -52,7 +51,7 @@ public class Main : MonoBehaviour
     public void StartFinding(bool search)
     {
         StopCoroutine("FindPath");
-        line.SetActive(false);
+      //  line.SetActive(false);
         finding = false;
         //grid.ResetGrid();
         if(search) StartCoroutine("FindPath");        
