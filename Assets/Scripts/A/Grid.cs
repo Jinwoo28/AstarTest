@@ -6,6 +6,22 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
+    public static Grid gridInstance = null;
+
+    private void Awake()
+    {
+        if(null == gridInstance)
+        {
+            gridInstance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
+        CreateGrid();
+    }
+
     public GameObject groundPrefab; //바닥을 이룰 게임으보젝트(정사각형의 Quad 사용)
     GameObject parentGrid;  //groundPrefab의 부모
 
@@ -21,6 +37,7 @@ public class Grid : MonoBehaviour
         //타일 개수에 따른 카메라의 위치
         float cameraY = gridWorldSize.x * 0.42f > gridWorldSize.y * 0.87f ? gridWorldSize.x * 0.42f : gridWorldSize.y * 0.87f;
         transform.position = new Vector3(0, cameraY, 0);
+
 
         //노드들을 담을 빈게임오브젝트를 하나 생성
         if (parentGrid != null)
@@ -118,9 +135,10 @@ public class Grid : MonoBehaviour
     public Node NodePoint(Vector3 rayPosition)
     {
         //레이에 맞은 곳의 node를 찾아 반환하기 위한 함수
-        int x = (int)(rayPosition.x + gridWorldSize.x / 2);
+        int x = (int)(rayPosition.x + gridWorldSize.x / 2);     //index번호가...?
         int y = (int)(rayPosition.z + gridWorldSize.y / 2);
 
+        Debug.Log("X : " + x + " Y : " + y);
         return grid[x, y];
     }
 
@@ -139,5 +157,26 @@ public class Grid : MonoBehaviour
             grid[(int)gridWorldSize.x - 1, (int)gridWorldSize.y - 1].end = true;
             return grid[(int)gridWorldSize.x - 1, (int)gridWorldSize.y - 1];
         }
+    }
+
+    public float GridWorldSizeX
+    {
+        get
+        {
+            return gridWorldSize.x;
+        }
+    }
+
+    public float GridWorldSizeY
+    {
+        get
+        {
+            return gridWorldSize.y;
+        }
+    }
+
+    public Node gridindex(int X, int Y)
+    {
+        return grid[X, Y];
     }
 }

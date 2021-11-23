@@ -115,8 +115,8 @@ public class Setting : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 100f))
         {
             GameObject obj = hit.collider.gameObject; //맞은 hit의 정보를 반환
-            Debug.Log(obj.name);
-            Debug.Log(obj.transform.position);
+          //  Debug.Log(obj.name);
+          //  Debug.Log(obj.transform.position);
             return grid.NodePoint(obj.transform.position);  // 선택한 노드의 x,y 값으로 grid[x,y]를 찾음
         }
         return null; // 맞은 collider가 없으면 null 반환
