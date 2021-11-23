@@ -14,14 +14,15 @@ public class UnityMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SetStartPos();
+            SetStartPos();
+        main = GetComponent<Main>();
     }
 
     public void SetStartPos()
     {
         Node Snode = CurrentPos();
-        Snode = main.start;
-        Snode.ChangeStart = true;
+        Snode = Main.mainInstance.start;
+     //   Snode.ChangeStart = true;
 
     }
 
@@ -35,7 +36,7 @@ public class UnityMove : MonoBehaviour
                 GameObject obj = hit.collider.gameObject;
                 //Debug.Log(obj.name);
                 //Debug.Log(obj.transform.position);
-                return grid.NodePoint(obj.transform.position);
+                return Grid.gridInstance.NodePoint(obj.transform.position);
             }
         }
         return null;

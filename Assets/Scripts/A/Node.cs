@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Node
 {
+
+    // 이 스크립트는 각 노드의 index와 노드가 가진 컬러, 노드간의 거리계산에 필요한 값을 가지고 있다.
+
     public GameObject ground;  //노드를 저장하고 있는 게임오브젝트
     public bool walkable;   //이동 가능한 지역인지 판단하는 변수
     public int gridX;   //노드의 x축 번호

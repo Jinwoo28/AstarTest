@@ -5,20 +5,25 @@ using UnityEngine;
 
 public class Main : MonoBehaviour
 {
-    public GameObject line;
-    LineRenderer lineRander;
-
-    public GameObject Player;
+    //public GameObject line;
+    //LineRenderer lineRander;
 
     Grid grid;
     public Node start; 
      public Node end;
 
+    public static Main mainInstance = null;
 
     public bool finding;
 
     private void Awake()
     {
+
+        if(mainInstance == null)
+        {
+            mainInstance = this;
+        }
+
        //lineRander = line.GetComponent<LineRenderer>();
         grid = GetComponent<Grid>();
         StartGrid();
@@ -37,15 +42,15 @@ public class Main : MonoBehaviour
        // line.SetActive(false);
         finding = false;
 
-        bool success = grid.CreateGrid();// 게임 시작시 맵에 타일 생성
+        //bool success = grid.CreateGrid();// 게임 시작시 맵에 타일 생성
 
-        if (success)        // 생성이 끝나면 처음 시작과 끝이 될 노드를 설정
-        {
-            start = grid.StartNode;
-          //  end = grid.EndNode;
-            start.ChangeStart = true;
-         //   end.ChangeEnd = true;
-        }
+        //if (success)        // 생성이 끝나면 처음 시작과 끝이 될 노드를 설정
+        //{
+        //    start = grid.StartNode;
+        //  //  end = grid.EndNode;
+        //    start.ChangeStart = true;
+        // //   end.ChangeEnd = true;
+        //}
     }
 
     public void StartFinding(bool search)
@@ -168,18 +173,19 @@ public class Main : MonoBehaviour
         return waypoints.ToArray();
     }
 
-    public void DrawingLine(Vector3[] waypoints)
-    {
-        line.SetActive(true);
-        lineRander.positionCount = waypoints.Length;
-        for (int i = 0; i < waypoints.Length; i++)
-        {
-           // lineRander.SetPosition(i, waypoints[i]);
+    //public void DrawingLine(Vector3[] waypoints)
+    //{
+    //    line.SetActive(true);
+    //    lineRander.positionCount = waypoints.Length;
+    //    for (int i = 0; i < waypoints.Length; i++)
+    //    {
+    //       // lineRander.SetPosition(i, waypoints[i]);
             
-        }
-    }
+    //    }
+    //}
 
     //노드간의 거리를 계산
+    //???????
     int GetDistance(Node nodeA, Node nodeB)
     {
         int dstX = Mathf.Abs(nodeA.gridX - nodeB.gridX);
