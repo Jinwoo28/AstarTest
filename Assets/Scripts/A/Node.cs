@@ -98,11 +98,11 @@ public class Node
             }
         }
     }
-    public bool ChangeEnd
+    public bool ChangeEnd 
     {
         set
         {
-            if (value)
+            if (value)      //외부에서 함수를 호출할 때 true면 빨간색으로 바꺼줌
             {
                 end = value;
                 ChangeColor = Color.Lerp(Color.red, Color.white, 0.2f);
@@ -110,7 +110,7 @@ public class Node
             else
             {
                 end = value;
-                ChangeNode = walkable;
+                ChangeNode = walkable;      //펄스면 장애물인지 아닌지 판단 후 원래 색으로 변경
             }
         }
     }

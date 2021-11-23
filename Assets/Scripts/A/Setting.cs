@@ -46,10 +46,18 @@ public class Setting : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             Node node = RayCast();
+            Node oldnode = main.end;
             if(node != null)
             {
+                if (oldnode != null)
+                {
+                    oldnode.ChangeEnd = false;
+                    oldnode = null;
+                }
                 node.ChangeEnd = true;
                 main.end = node;
+
+                main.StartFinding(true);
             }
         }
     }
@@ -107,80 +115,82 @@ public class Setting : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 100f))
         {
             GameObject obj = hit.collider.gameObject; //맞은 hit의 정보를 반환
+            Debug.Log(obj.name);
+            Debug.Log(obj.transform.position);
             return grid.NodePoint(obj.transform.position);  // 선택한 노드의 x,y 값으로 grid[x,y]를 찾음
         }
         return null; // 맞은 collider가 없으면 null 반환
     }
-    void ReconstructionGrid(int windowId)
-    {
-        string value;
+    //void ReconstructionGrid(int windowId)
+    //{
+    //    string value;
 
-        GUIStyle textStyle = new GUIStyle("TextField");
-        GUILayout.BeginVertical("box");
-        GUILayout.Label("Size X : 2 ~ 100");
-        GUILayout.BeginHorizontal();
-        GUILayout.Label("Size X", GUILayout.MinWidth(50));
-        value = GUILayout.TextField(grid.gridWorldSize.x.ToString(), textStyle, GUILayout.MinWidth(50));
-        grid.gridWorldSize.x = int.Parse(value);
-        GUILayout.EndHorizontal();
-        GUILayout.Label("Size Y : 2 ~ 50");
-        GUILayout.BeginHorizontal();
-        GUILayout.Label("Size Y", GUILayout.MinWidth(50));
-        value = GUILayout.TextField(grid.gridWorldSize.y.ToString(), textStyle, GUILayout.MinWidth(50));
-        grid.gridWorldSize.y = int.Parse(value);
-        GUILayout.EndHorizontal();
-        GUILayout.EndVertical();
-        if (GUILayout.Button("Change Grid"))
-        {
-            main.StartGrid();
-            pauseBut = false;
-        }
-        if (!main.finding && pauseBut)
-        {
-            if (GUILayout.Button("Resume Search"))
-            {
-                main.finding = true;
-                pauseBut = false;
-            }
-        }
-        else
-        {
-            if (GUILayout.Button("Start Search"))
-            {
-                main.StartFinding(true);
-            }
-        }
-        if (pauseBut)
-        {
-            if (GUILayout.Button("Cancel Search"))
-            {
-                pauseBut = false;
-                main.StartFinding(false);
-            }
-        }
-        else
-        {
-            if (GUILayout.Button("Pause Search"))
-            {
-                if (main.finding)
-                {
-                    pauseBut = true;
-                    main.finding = false;
-                }
-            }
-        }
+    //    GUIStyle textStyle = new GUIStyle("TextField");
+    //    GUILayout.BeginVertical("box");
+    //    GUILayout.Label("Size X : 2 ~ 100");
+    //    GUILayout.BeginHorizontal();
+    //    GUILayout.Label("Size X", GUILayout.MinWidth(50));
+    //    value = GUILayout.TextField(grid.gridWorldSize.x.ToString(), textStyle, GUILayout.MinWidth(50));
+    //    grid.gridWorldSize.x = int.Parse(value);
+    //    GUILayout.EndHorizontal();
+    //    GUILayout.Label("Size Y : 2 ~ 50");
+    //    GUILayout.BeginHorizontal();
+    //    GUILayout.Label("Size Y", GUILayout.MinWidth(50));
+    //    value = GUILayout.TextField(grid.gridWorldSize.y.ToString(), textStyle, GUILayout.MinWidth(50));
+    //    grid.gridWorldSize.y = int.Parse(value);
+    //    GUILayout.EndHorizontal();
+    //    GUILayout.EndVertical();
+    //    if (GUILayout.Button("Change Grid"))
+    //    {
+    //        main.StartGrid();
+    //        pauseBut = false;
+    //    }
+    //    if (!main.finding && pauseBut)
+    //    {
+    //        if (GUILayout.Button("Resume Search"))
+    //        {
+    //            main.finding = true;
+    //            pauseBut = false;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if (GUILayout.Button("Start Search"))
+    //        {
+    //            main.StartFinding(true);
+    //        }
+    //    }
+    //    if (pauseBut)
+    //    {
+    //        if (GUILayout.Button("Cancel Search"))
+    //        {
+    //            pauseBut = false;
+    //            main.StartFinding(false);
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if (GUILayout.Button("Pause Search"))
+    //        {
+    //            if (main.finding)
+    //            {
+    //                pauseBut = true;
+    //                main.finding = false;
+    //            }
+    //        }
+    //    }
 
-    }
-    private void OnGUI()
-    {
+    //}
+    //private void OnGUI()
+    //{
 
-        if (GUILayout.Button("Menu"))
-        {
-            settingButton *= -1;
-        }
-        if (settingButton == 1)
-        {
-            GUILayout.Window(0, new Rect(10, 30, 2, 2), ReconstructionGrid, "Settings");
-        }
-    }
+    //    if (GUILayout.Button("Menu"))
+    //    {
+    //        settingButton *= -1;
+    //    }
+    //    if (settingButton == 1)
+    //    {
+    //        GUILayout.Window(0, new Rect(10, 30, 2, 2), ReconstructionGrid, "Settings");
+    //    }
+    //}
 }
